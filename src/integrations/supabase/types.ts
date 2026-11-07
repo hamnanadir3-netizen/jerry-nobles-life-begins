@@ -14,6 +14,21 @@ export type Database = {
   }
   public: {
     Tables: {
+      contact_submission_rate_limits: {
+        Row: {
+          client_key: string
+          last_submitted_at: string
+        }
+        Insert: {
+          client_key: string
+          last_submitted_at?: string
+        }
+        Update: {
+          client_key?: string
+          last_submitted_at?: string
+        }
+        Relationships: []
+      }
       contact_submissions: {
         Row: {
           created_at: string
@@ -43,7 +58,15 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      submit_contact_message: {
+        Args: {
+          _client_key: string
+          _email: string
+          _message: string
+          _name: string
+        }
+        Returns: string
+      }
     }
     Enums: {
       [_ in never]: never
